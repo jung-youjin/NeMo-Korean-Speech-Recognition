@@ -12,13 +12,13 @@ import pickle
 
 folder_path = "/content/korean-speech-recognition-quartznet/datasets/meta/aihub/"
     
-with open(folder+path+'/id2char.pkl', 'rb') as f:
+with open(folder+path+'id2char.pkl', 'rb') as f:
     vocab = ''.join(pickle.load(f))
 
-with open(folder+path+'/train_data.pkl', 'rb') as f:
+with open(folder+path+'train_data.pkl', 'rb') as f:
     train_data = pickle.load(f)
     
-with open(folder+path+'/test_data.pkl', 'rb') as f:
+with open(folder+path+'test_data.pkl', 'rb') as f:
     test_data = pickle.load(f)
     
 #PAD_TOKEN = int(char2id['_'])
