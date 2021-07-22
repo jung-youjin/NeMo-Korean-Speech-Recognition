@@ -27,7 +27,7 @@ from misc.optimizers import AdamW, Novograd
 from misc.lr_policies import noam_v1, cosine_annealing
 from decoder import GreedyDecoder
 
-torch.cuda.set_device(2)
+torch.cuda.set_device(0)
 
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument("--dataset", choices=['librispeech', 'mbspeech', 'bolorspeech', 'kazakh20h', 'aihub'],

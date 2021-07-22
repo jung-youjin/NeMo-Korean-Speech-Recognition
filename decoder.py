@@ -40,8 +40,8 @@ class Decoder(object):
         self.int_to_char = dict([(i, c) for (i, c) in enumerate(labels)])
         self.blank_index = blank_index
         space_index = len(labels)  # To prevent errors in decode, we add an out of bounds index for the space
-        if ' ' in labels:
-            space_index = labels.index(' ')
+        if b' ' in labels:
+            space_index = labels.index(b' ')
         self.space_index = space_index
 
     def wer(self, s1, s2):
