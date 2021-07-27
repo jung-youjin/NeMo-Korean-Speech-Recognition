@@ -10,10 +10,10 @@ import pickle
 #with open('data/aihub/char2id.pkl', 'rb') as f:
 #    char2id = pickle.load(f)
 
-folder_path = "/content/korean-speech-recognition-quartznet/datasets/meta/aihub/pickle/"
+folder_path = "/content/korean-speech-recognition-quartznet/datasets/meta/aihub/pickle-new/"
     
 with open(folder_path+'id2char.pkl', 'rb') as f:
-    vocab = b''.join(pickle.load(f))
+    vocab = ''.join(str(pickle.load(f)))
 
 with open(folder_path+'train_data.pkl', 'rb') as f:
     train_data = pickle.load(f)

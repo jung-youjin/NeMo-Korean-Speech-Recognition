@@ -327,8 +327,11 @@ def train(epoch, phase='train'):
         if args.model == 'crnn':
             outputs = model(inputs.cuda())
             inputs_length = inputs_length // 2 + 2
-        else:
+            # print(inputs_length)
+        else: # 여기는 오지도 않음
+            print(inputs_length.cuda())
             outputs, inputs_length = model(inputs.cuda(), inputs_length.cuda())
+            # print(inputs_length)
             # BxCxT -> TxBxC
             outputs = outputs.permute(2, 0, 1)
 
@@ -343,6 +346,7 @@ def train(epoch, phase='train'):
             loss = criterion(outputs.cpu(), targets_1d.cpu(), inputs_length.cpu(), targets_length.cpu())
         else:
             # nn.CTCLoss wants log softmax with TxBxC
+            # print(inputs_length)
             loss = criterion(outputs.log_softmax(dim=2), targets.cuda(), inputs_length.cuda(), targets_length.cuda())
         loss = loss / B
 
