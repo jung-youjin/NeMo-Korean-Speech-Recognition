@@ -9,14 +9,16 @@ import pickle
 
 #with open('data/aihub/char2id.pkl', 'rb') as f:
 #    char2id = pickle.load(f)
-    
-with open('/home/cilab/LabMembers/DJ/final_exp/QUARTZNET/datasets/meta/aihub/id2char.pkl', 'rb') as f:
-    vocab = ''.join(pickle.load(f))
 
-with open('/home/cilab/LabMembers/DJ/final_exp/QUARTZNET/datasets/meta/aihub/train_data.pkl', 'rb') as f:
+folder_path = "/content/korean-speech-recognition-quartznet/datasets/meta/aihub/pickle-new/"
+    
+with open(folder_path+'id2char.pkl', 'rb') as f:
+    vocab = ''.join(str(pickle.load(f)))
+
+with open(folder_path+'train_data.pkl', 'rb') as f:
     train_data = pickle.load(f)
     
-with open('/home/cilab/LabMembers/DJ/final_exp/QUARTZNET/datasets/meta/aihub/test_data.pkl', 'rb') as f:
+with open(folder_path+'test_data.pkl', 'rb') as f:
     test_data = pickle.load(f)
     
 #PAD_TOKEN = int(char2id['_'])

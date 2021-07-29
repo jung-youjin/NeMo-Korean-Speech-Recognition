@@ -27,7 +27,7 @@ from misc.optimizers import AdamW, Novograd
 from misc.lr_policies import noam_v1, cosine_annealing
 from decoder import GreedyDecoder
 
-torch.cuda.set_device(2)
+torch.cuda.set_device(0)
 
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument("--dataset", choices=['librispeech', 'mbspeech', 'bolorspeech', 'kazakh20h', 'aihub'],
@@ -327,8 +327,11 @@ def train(epoch, phase='train'):
         if args.model == 'crnn':
             outputs = model(inputs.cuda())
             inputs_length = inputs_length // 2 + 2
-        else:
+            # print(inputs_length)
+        else: # 여기는 오지도 않음
+            print(inputs_length.cuda())
             outputs, inputs_length = model(inputs.cuda(), inputs_length.cuda())
+            # print(inputs_length)
             # BxCxT -> TxBxC
             outputs = outputs.permute(2, 0, 1)
 
@@ -343,6 +346,7 @@ def train(epoch, phase='train'):
             loss = criterion(outputs.cpu(), targets_1d.cpu(), inputs_length.cpu(), targets_length.cpu())
         else:
             # nn.CTCLoss wants log softmax with TxBxC
+            # print(inputs_length)
             loss = criterion(outputs.log_softmax(dim=2), targets.cuda(), inputs_length.cuda(), targets_length.cuda())
         loss = loss / B
 
