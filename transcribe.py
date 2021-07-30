@@ -8,7 +8,8 @@ import torch
 import time
 
 from datasets import *
-from datasets.mb_speech import vocab
+# from datasets.mb_speech import vocab
+from datasets.aihub import vocab
 from models import *
 from models.crnn import *
 from utils import load_checkpoint
@@ -29,6 +30,7 @@ def transcribe(data, num_features, args):
     else:
         model = Speech2TextCRNN(vocab)
     load_checkpoint(args.checkpoint, model, optimizer=None, use_gpu=use_gpu, remove_module_keys=True)
+    # print(model)
     model.eval()
     model.cuda() if use_gpu else model.cpu()
     torch.set_grad_enabled(False)
@@ -45,12 +47,15 @@ def transcribe(data, num_features, args):
         outputs = model(inputs)
     else:
         outputs, inputs_length = model(inputs, inputs_length)
+        # print(inputs_length)
         # BxCxT -> TxBxC
         outputs = outputs.permute(2, 0, 1)
+        print(outputs)
     outputs = outputs.softmax(2).permute(1, 0, 2)
     print("inference time: %.3fs" % (time.time() - t))
 
     greedy_decoder = GreedyDecoder(labels=vocab)
+    print(vocab)
     t = time.time()
     decoded_output, _ = greedy_decoder.decode(outputs)
     print("decode time without LM: %.3fs" % (time.time() - t))

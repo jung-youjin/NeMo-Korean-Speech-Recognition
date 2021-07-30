@@ -10,7 +10,7 @@ import pickle
 #with open('data/aihub/char2id.pkl', 'rb') as f:
 #    char2id = pickle.load(f)
 
-folder_path = "/content/korean-speech-recognition-quartznet/datasets/meta/aihub/pickle/"
+folder_path = "/content/nemo-korean-speech-recognition/datasets/meta/aihub/pickle/"
     
 with open(folder_path+'id2char.pkl', 'rb') as f:
     vocab = ''.join(pickle.load(f)[:991])
