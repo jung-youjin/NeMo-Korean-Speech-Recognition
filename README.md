@@ -1,2 +1,2 @@
 # NeMo-Korean-Speech-Recognition
-Korean Speech Recognition using NVIDIA NeMo on Jetson embedded hardware
+Offline Korean Speech Recognition using NVIDIA NeMo on Jetson embedded hardware end device
