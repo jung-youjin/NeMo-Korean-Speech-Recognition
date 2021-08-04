@@ -8,6 +8,7 @@ import torch
 import math
 import requests
 from tqdm import tqdm
+from datetime import date
 
 
 def get_last_checkpoint_file_name(logdir):
@@ -28,8 +29,8 @@ def load_checkpoint(checkpoint_file_name, model, optimizer, use_gpu=False, remov
     # print(state_dict.keys())
     # print(model)
     # model_load = model(checkpoint['epoch'], checkpoint['global_step'], checkpoint['state_dict'], checkpoint['optimizer'])
-    model_load = torch.load(checkpoint_file_name)
-
+    # model_load = torch.load(checkpoint_file_name)
+    # model_load = model(checkpoint['epoch'], checkpoint['global_step'])
     if remove_module_keys:
         new_state_dict = {}
         for k, v in state_dict.items():
@@ -40,12 +41,13 @@ def load_checkpoint(checkpoint_file_name, model, optimizer, use_gpu=False, remov
         state_dict = new_state_dict
     # print(state_dict)
     # print(state_dict.keys())
-    model.load_state_dict(model_load, strict=False)
+    # model.load_state_dict(model_load)
     # model.load_state_dict(state_dict, strict=False)
+    model.load_state_dict(state_dict)
     # model.float()
     # print(model)
     if optimizer is not None:
-        optimizer.load_state_dict(checkpoint['optimizer'], strict=False)
+        optimizer.load_state_dict(checkpoint['optimizer'])
     start_epoch = checkpoint.get('epoch', 0)
     global_step = checkpoint.get('global_step', 0)
     # optimizer_ = checkpoint.get('optimizer', 0)
@@ -66,7 +68,9 @@ def save_checkpoint(logdir, epoch, global_step, model, optimizer):
         'optimizer': optimizer.state_dict(),
     }
     torch.save(checkpoint, checkpoint_file_name)
-    drive_path = F"/suresoft/backup/weight/210730/".join('epoch-%04d.pth' % epoch)
+    today = date.today()
+    date_ymd = today.strftime("%y%m%d")
+    drive_path = F"/suresoft/backup/weight/"+ date_ymd +"/"+('epoch-%04d.pth' % epoch)
     torch.save(checkpoint, drive_path)
     del checkpoint
 
