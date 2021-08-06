@@ -9,7 +9,7 @@ import time
 
 from datasets import *
 # from datasets.mb_speech import vocab
-from datasets.aihub import vocab
+from datasets.aihub_speech import vocab
 from models import *
 from models.crnn import *
 from utils import load_checkpoint
