@@ -16,6 +16,8 @@ from utils import load_checkpoint
 
 from decoder import *
 
+from datasets.meta.aihub.preprocess_ksponspeech import target_to_sentence, id2char
+
 
 def transcribe(data, num_features, args):
     use_gpu = torch.cuda.is_available()
@@ -61,6 +63,7 @@ def transcribe(data, num_features, args):
     print("decode time without LM: %.3fs" % (time.time() - t))
     print("Predicted without LM:")
     print(decoded_output[0][0])
+    print(target_to_sentence(decoded_output[0][0], id2char))
 
     if args.lm:
         beam_ctc_decoder = BeamCTCDecoder(labels=vocab, num_processes=4,
