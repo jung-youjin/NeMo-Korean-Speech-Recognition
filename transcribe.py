@@ -9,12 +9,14 @@ import time
 
 from datasets import *
 # from datasets.mb_speech import vocab
-from datasets.aihub import vocab
+from datasets.aihub_speech import vocab
 from models import *
 from models.crnn import *
 from utils import load_checkpoint
 
 from decoder import *
+
+from datasets.meta.aihub.preprocess_ksponspeech import target_to_sentence, id2char
 
 
 def transcribe(data, num_features, args):
@@ -61,6 +63,7 @@ def transcribe(data, num_features, args):
     print("decode time without LM: %.3fs" % (time.time() - t))
     print("Predicted without LM:")
     print(decoded_output[0][0])
+    print(target_to_sentence(decoded_output[0][0], id2char))
 
     if args.lm:
         beam_ctc_decoder = BeamCTCDecoder(labels=vocab, num_processes=4,
