@@ -68,10 +68,10 @@ def save_checkpoint(logdir, epoch, global_step, model, optimizer):
         'optimizer': optimizer.state_dict(),
     }
     torch.save(checkpoint, checkpoint_file_name)
-    today = date.today()
-    date_ymd = today.strftime("%y%m%d")
-    drive_path = F"/suresoft/backup/weight/"+ date_ymd +"/"+('epoch-%04d.pth' % epoch)
-    torch.save(checkpoint, drive_path)
+#     today = date.today()
+#     date_ymd = today.strftime("%y%m%d")
+#     drive_path = F"/suresoft/backup/weight/"+ date_ymd +"/"+('epoch-%04d.pth' % epoch)
+#     torch.save(checkpoint, drive_path)
     del checkpoint
 
 
